@@ -1,7 +1,17 @@
+using Google.Cloud.Firestore;
+using System;
+
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "/home/xiki/CloudKey/restaurantkey.json");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<FirestoreDb>(provider =>
+{
+    return FirestoreDb.Create("restaurant-491515");
+});
 
 var app = builder.Build();
 
