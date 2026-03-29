@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Cloud Restaurant Manager</h1>
+    <p>Manage your menus and locations all in one place.</p>
+    
+    <a asp-controller="Restaurant" asp-action="Create" class="btn btn-primary mt-3">
+        + Add a New Restaurant
+    </a>
+    <a asp-controller="Restaurant" asp-action="Index" class="btn btn-outline-secondary mt-3 ms-2">
+        View All Restaurants
+    </a>
+</div>

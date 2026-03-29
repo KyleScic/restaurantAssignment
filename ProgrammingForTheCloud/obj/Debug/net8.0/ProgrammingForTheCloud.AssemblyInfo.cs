@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProgrammingForTheCloud")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5adad3c31eda1e29a7dd869324211312c75dcefe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+41528014a66eb025e3b5ac14e497911c2d5e1f6e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProgrammingForTheCloud")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProgrammingForTheCloud")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
