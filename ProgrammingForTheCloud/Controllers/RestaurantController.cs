@@ -30,4 +30,17 @@ public class RestaurantController : Controller
         await _restaurantService.AddRestaurantAsync(newRestaurant);
         return RedirectToAction("Index");
     }
+
+    public async Task<IActionResult> Menu(string id)
+    {
+        if (string.IsNullOrEmpty(id))
+        {
+            return RedirectToAction("Index");
+            
+        }
+
+        var menuItems = await _restaurantService.GetMenuAsync(id);
+        ViewBag.RestaurantId = id;
+        return View(menuItems);
+    }
 }

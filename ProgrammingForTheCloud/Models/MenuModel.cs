@@ -3,7 +3,7 @@ using Google.Cloud.Firestore;
 namespace ProgrammingForTheCloud.Models;
 
 [FirestoreData]
-public class MenuModel
+public class MenuItem
 {
     [FirestoreDocumentId]
     public string Id { get; set; }
