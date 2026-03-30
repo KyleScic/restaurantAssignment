@@ -12,7 +12,7 @@ public interface IRestaurantService
     Task<List<Restaurant>> GetAllRestaurantsAsync();
     
     //Menu 
-    Task AddMenuItemAsync(string restaurantId, MenuItem item);
+    Task<string> AddMenuItemAsync(string restaurantId, MenuItem item);
     Task<List<MenuItem>> GetMenuAsync(string restaurantId);
 }
 
@@ -58,10 +58,12 @@ public class RestaurantService : IRestaurantService
         return restaurantsList;
     }
 
-    public async Task AddMenuItemAsync(string restaurantId, MenuItem item)
+    public async Task<string> AddMenuItemAsync(string restaurantId, MenuItem item)
     {
         CollectionReference menuCollection = _db.Collection("Restaurants").Document(restaurantId).Collection("Menu");
-        await menuCollection.AddAsync(item);
+        
+        DocumentReference result = await menuCollection.AddAsync(item);
+        return result.Id;
 
     }
 

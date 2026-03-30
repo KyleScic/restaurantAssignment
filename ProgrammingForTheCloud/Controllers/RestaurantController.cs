@@ -30,6 +30,36 @@ public class RestaurantController : Controller
         await _restaurantService.AddRestaurantAsync(newRestaurant);
         return RedirectToAction("Index");
     }
+    
+    [HttpGet]
+    public IActionResult CreateMenu(string restaurantId)
+    {
+       
+        ViewBag.RestaurantId = restaurantId;
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateMenu(string restaurantId, MenuItem newMenuItem)
+    {
+        if (!ModelState.IsValid)
+        {
+            
+            var errors = ModelState.Values.SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage)
+                .ToList();
+
+            foreach (var error in errors)
+            {
+                Console.WriteLine($"Validation Error: {error}");
+            }
+
+            return View(newMenuItem);
+        }
+        
+        await _restaurantService.AddMenuItemAsync(restaurantId, newMenuItem);
+        return RedirectToAction("Details", "Restaurant", new { id = restaurantId });
+    }
 
     public async Task<IActionResult> Menu(string id)
     {

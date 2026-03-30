@@ -9,7 +9,35 @@
     <a asp-controller="Restaurant" asp-action="Create" class="btn btn-primary mt-3">
         + Add a New Restaurant
     </a>
-    <a asp-controller="Restaurant" asp-action="Index" class="btn btn-outline-secondary mt-3 ms-2">
-        View All Restaurants
-    </a>
+
+    
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Cuisine</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var restaurant in Model)
+        {
+            <tr>
+                <td>@restaurant.Name</td>
+                <td>@restaurant.Cuisine</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@restaurant.Id" class="btn btn-primary">
+                        View Menu
+                    </a>
+                    
+                    <a asp-controller="Restaurant" asp-action="CreateMenu" asp-route-restaurantId="@restaurant.Id" class="btn btn-primary">
+                        + Add Menu Item
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+   
 </div>
