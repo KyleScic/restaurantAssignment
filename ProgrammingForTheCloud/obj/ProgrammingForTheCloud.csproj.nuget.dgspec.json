@@ -43,9 +43,25 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Google.Apis.Vision.v1": {
+              "target": "Package",
+              "version": "[1.73.0.3976, )"
+            },
             "Google.Cloud.Firestore": {
               "target": "Package",
               "version": "[4.2.0, )"
+            },
+            "Google.Cloud.Storage.V1": {
+              "target": "Package",
+              "version": "[4.14.0, )"
+            },
+            "Google.Cloud.Vision.V1": {
+              "target": "Package",
+              "version": "[3.8.0, )"
+            },
+            "Google.Cloud.VisionAI.V1": {
+              "target": "Package",
+              "version": "[1.0.0-beta01, )"
             }
           },
           "imports": [

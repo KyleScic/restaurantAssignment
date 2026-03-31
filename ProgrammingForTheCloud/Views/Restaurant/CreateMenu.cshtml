@@ -5,32 +5,16 @@
 }
 
 <div class="container mt-4">
-    <h2>Add a Menu to the restaurant}"</h2>
-    <hr />
+    <h2>Add a Menu to the restaurant</h2> <hr />
 
     <div class="row">
         <div class="col-md-6">
-            <form asp-action="CreateMenu" method="post">
+            <form asp-action="CreateMenu" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="restaurantId" value="@ViewBag.RestaurantId" />
-
+                
                 <div class="mb-3">
-                    <label asp-for="Name" class="form-label">Item Name</label>
-                    <input asp-for="Name" class="form-control" required placeholder="e.g.,Pizza "/>
-                </div>
-
-                <div class="mb-3">
-                    <input asp-for="Price" class="form-control" required placeholder="20.00 "/>
-                    <label asp-for="Price" class="form-label">Price</label>
-                </div>
-
-                <div class="mb-3">
-                    <input asp-for="Description" class="form-control" required placeholder="e.g.,This is a pizza "/>
-                    <label asp-for="Description" class="form-label">Description</label>
-                </div>
-
-                <div class="mb-3">
-                    <input asp-for="Category" class="form-control" required placeholder="Pasta "/>
-                    <label asp-for="Category" class="form-label">Category</label>
+                    <label class="form-label">Menu Item Photo</label>
+                    <input type="file" name="imageFile" class="form-control" accept="image/*" />
                 </div>
 
                 <button type="submit" class="btn btn-success">Save to Cloud</button>

@@ -40,7 +40,7 @@ public class RestaurantController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateMenu(string restaurantId, MenuItem newMenuItem)
+    public async Task<IActionResult> CreateMenu(string restaurantId, MenuItem newMenuItem, IFormFile? imageFile)
     {
         if (!ModelState.IsValid)
         {
@@ -55,6 +55,20 @@ public class RestaurantController : Controller
             }
 
             return View(newMenuItem);
+        }
+        
+        
+        
+        if (imageFile != null && imageFile.Length > 0)
+        {
+            newMenuItem.ImageUrl = await _restaurantService.UploadImageAsync(imageFile);
+            string rawMenuText = await _restaurantService.ExtractTextFromMenuImageAsync(imageFile);
+
+            if (!string.IsNullOrEmpty(rawMenuText))
+            {
+                newMenuItem.Data = rawMenuText;
+                _restaurantService.ParseAnyMenuText(rawMenuText);
+            }
         }
         
         await _restaurantService.AddMenuItemAsync(restaurantId, newMenuItem);

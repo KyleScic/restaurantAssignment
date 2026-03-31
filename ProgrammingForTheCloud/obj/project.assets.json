@@ -61,6 +61,24 @@
           }
         }
       },
+      "Google.Api.Gax.Rest/4.12.1": {
+        "type": "package",
+        "dependencies": {
+          "Google.Api.Gax": "4.12.1",
+          "Google.Apis.Auth": "1.72.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Api.Gax.Rest.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Api.Gax.Rest.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Google.Apis/1.73.0": {
         "type": "package",
         "dependencies": {
@@ -111,6 +129,40 @@
           }
         }
       },
+      "Google.Apis.Storage.v1/1.71.0.3920": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.71.0",
+          "Google.Apis.Auth": "1.71.0"
+        },
+        "compile": {
+          "lib/net6.0/Google.Apis.Storage.v1.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Google.Apis.Storage.v1.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Vision.v1/1.73.0.3976": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.73.0",
+          "Google.Apis.Auth": "1.73.0"
+        },
+        "compile": {
+          "lib/net6.0/Google.Apis.Vision.v1.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Google.Apis.Vision.v1.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Google.Cloud.Firestore/4.2.0": {
         "type": "package",
         "dependencies": {
@@ -148,6 +200,22 @@
           }
         }
       },
+      "Google.Cloud.Iam.V1/3.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Api.Gax.Grpc": "[4.9.0, 5.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Cloud.Iam.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Cloud.Iam.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Google.Cloud.Location/2.4.0": {
         "type": "package",
         "dependencies": {
@@ -160,6 +228,59 @@
         },
         "runtime": {
           "lib/netstandard2.0/Google.Cloud.Location.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Cloud.Storage.V1/4.14.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Api.Gax.Rest": "[4.12.1, 5.0.0)",
+          "Google.Apis.Storage.v1": "[1.71.0.3920, 2.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Cloud.Storage.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Cloud.Storage.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Cloud.Vision.V1/3.8.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Api.Gax.Grpc": "[4.12.1, 5.0.0)",
+          "Google.LongRunning": "[3.5.0, 4.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Cloud.Vision.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Cloud.Vision.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Cloud.VisionAI.V1/1.0.0-beta01": {
+        "type": "package",
+        "dependencies": {
+          "Google.Api.Gax.Grpc": "[4.12.1, 5.0.0)",
+          "Google.Cloud.Iam.V1": "[3.4.0, 4.0.0)",
+          "Google.Cloud.Location": "[2.3.0, 3.0.0)",
+          "Google.LongRunning": "[3.4.0, 4.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Cloud.VisionAI.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Cloud.VisionAI.V1.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -520,6 +641,25 @@
         "lib/netstandard2.0/Google.Api.Gax.Grpc.xml"
       ]
     },
+    "Google.Api.Gax.Rest/4.12.1": {
+      "sha512": "djYb7sDJvUiOG66fpDIOsprrZz4RPbiAtMiKtRguQhrzlHasd+3k/u6BQFFY3S0KCdxJzvv8M8hi81Ocdi6Ijw==",
+      "type": "package",
+      "path": "google.api.gax.rest/4.12.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.api.gax.rest.4.12.1.nupkg.sha512",
+        "google.api.gax.rest.nuspec",
+        "lib/net462/Google.Api.Gax.Rest.dll",
+        "lib/net462/Google.Api.Gax.Rest.pdb",
+        "lib/net462/Google.Api.Gax.Rest.xml",
+        "lib/netstandard2.0/Google.Api.Gax.Rest.dll",
+        "lib/netstandard2.0/Google.Api.Gax.Rest.pdb",
+        "lib/netstandard2.0/Google.Api.Gax.Rest.xml"
+      ]
+    },
     "Google.Apis/1.73.0": {
       "sha512": "TnCjEyV2aCLQ6Zl40OCbEJULDuEkEWc6C/g81KYw5l1PqGo+G7pFZrV+YH8XgUL0JRUanz+IrUp8SsKF4dzkqg==",
       "type": "package",
@@ -586,6 +726,50 @@
         "lib/netstandard2.0/Google.Apis.Core.xml"
       ]
     },
+    "Google.Apis.Storage.v1/1.71.0.3920": {
+      "sha512": "jW4i96fvFjtkPOdOo3bfC2Wity0krx3RTCExTksIx9lS/k7HmbF/zfxE1z3VouhrQvwwdEOkrR4TxdxzomJKxQ==",
+      "type": "package",
+      "path": "google.apis.storage.v1/1.71.0.3920",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.storage.v1.1.71.0.3920.nupkg.sha512",
+        "google.apis.storage.v1.nuspec",
+        "lib/net462/Google.Apis.Storage.v1.dll",
+        "lib/net462/Google.Apis.Storage.v1.pdb",
+        "lib/net462/Google.Apis.Storage.v1.xml",
+        "lib/net6.0/Google.Apis.Storage.v1.dll",
+        "lib/net6.0/Google.Apis.Storage.v1.pdb",
+        "lib/net6.0/Google.Apis.Storage.v1.xml",
+        "lib/netstandard2.0/Google.Apis.Storage.v1.dll",
+        "lib/netstandard2.0/Google.Apis.Storage.v1.pdb",
+        "lib/netstandard2.0/Google.Apis.Storage.v1.xml"
+      ]
+    },
+    "Google.Apis.Vision.v1/1.73.0.3976": {
+      "sha512": "DTNFq8lcwLNnFcbDRkeSjso3HQeAPTcQ4rQaAL7dTNSgmX6CWboE2mDnwwJiOIICl9yJiuAG08LCWBjvkvbjog==",
+      "type": "package",
+      "path": "google.apis.vision.v1/1.73.0.3976",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.vision.v1.1.73.0.3976.nupkg.sha512",
+        "google.apis.vision.v1.nuspec",
+        "lib/net462/Google.Apis.Vision.v1.dll",
+        "lib/net462/Google.Apis.Vision.v1.pdb",
+        "lib/net462/Google.Apis.Vision.v1.xml",
+        "lib/net6.0/Google.Apis.Vision.v1.dll",
+        "lib/net6.0/Google.Apis.Vision.v1.pdb",
+        "lib/net6.0/Google.Apis.Vision.v1.xml",
+        "lib/netstandard2.0/Google.Apis.Vision.v1.dll",
+        "lib/netstandard2.0/Google.Apis.Vision.v1.pdb",
+        "lib/netstandard2.0/Google.Apis.Vision.v1.xml"
+      ]
+    },
     "Google.Cloud.Firestore/4.2.0": {
       "sha512": "8HWy3jlWDa5ApMgeDt+14/JBibjJ8NrwwijXUagiA+I4B50z9umDZ3pmcMfwNJ9L4ey8SrLbbTO55V04KH2y9Q==",
       "type": "package",
@@ -624,6 +808,25 @@
         "lib/netstandard2.0/Google.Cloud.Firestore.V1.xml"
       ]
     },
+    "Google.Cloud.Iam.V1/3.4.0": {
+      "sha512": "MBs/hyBOiTWZ+v9UHrXjWIxgeJo5q6PI2kmA0HMG3wrL4xIsctZLdM6KQjic8tc3kMnKlPb6gcInN8xQjFiM3g==",
+      "type": "package",
+      "path": "google.cloud.iam.v1/3.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.cloud.iam.v1.3.4.0.nupkg.sha512",
+        "google.cloud.iam.v1.nuspec",
+        "lib/net462/Google.Cloud.Iam.V1.dll",
+        "lib/net462/Google.Cloud.Iam.V1.pdb",
+        "lib/net462/Google.Cloud.Iam.V1.xml",
+        "lib/netstandard2.0/Google.Cloud.Iam.V1.dll",
+        "lib/netstandard2.0/Google.Cloud.Iam.V1.pdb",
+        "lib/netstandard2.0/Google.Cloud.Iam.V1.xml"
+      ]
+    },
     "Google.Cloud.Location/2.4.0": {
       "sha512": "ZFChsp6OYVPBAzpoEWFMf/W9lfOgPj5BY+75/VjGV6EoirhA3YNlSKta3fX2MPaWH6RqJ9ZtNJT4vmdxhxbkbQ==",
       "type": "package",
@@ -641,6 +844,63 @@
         "lib/netstandard2.0/Google.Cloud.Location.dll",
         "lib/netstandard2.0/Google.Cloud.Location.pdb",
         "lib/netstandard2.0/Google.Cloud.Location.xml"
+      ]
+    },
+    "Google.Cloud.Storage.V1/4.14.0": {
+      "sha512": "CLoAz9BDzqGEXWKWPuUxlk8/wcabsONxCa3MEQzxhbEGoKT1TOT6KnWNl1IhrBGqNw7IWtR/Xg06XHS8JYF1qQ==",
+      "type": "package",
+      "path": "google.cloud.storage.v1/4.14.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.cloud.storage.v1.4.14.0.nupkg.sha512",
+        "google.cloud.storage.v1.nuspec",
+        "lib/net462/Google.Cloud.Storage.V1.dll",
+        "lib/net462/Google.Cloud.Storage.V1.pdb",
+        "lib/net462/Google.Cloud.Storage.V1.xml",
+        "lib/netstandard2.0/Google.Cloud.Storage.V1.dll",
+        "lib/netstandard2.0/Google.Cloud.Storage.V1.pdb",
+        "lib/netstandard2.0/Google.Cloud.Storage.V1.xml"
+      ]
+    },
+    "Google.Cloud.Vision.V1/3.8.0": {
+      "sha512": "VHK9N9hL0y747yss00iG/04tRx2i85SLOxRX+FU4i6PlG88cAwzkW01cv3q8Zy6TnaJ6riNo/lrXO10UN6+AWw==",
+      "type": "package",
+      "path": "google.cloud.vision.v1/3.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.cloud.vision.v1.3.8.0.nupkg.sha512",
+        "google.cloud.vision.v1.nuspec",
+        "lib/net462/Google.Cloud.Vision.V1.dll",
+        "lib/net462/Google.Cloud.Vision.V1.pdb",
+        "lib/net462/Google.Cloud.Vision.V1.xml",
+        "lib/netstandard2.0/Google.Cloud.Vision.V1.dll",
+        "lib/netstandard2.0/Google.Cloud.Vision.V1.pdb",
+        "lib/netstandard2.0/Google.Cloud.Vision.V1.xml"
+      ]
+    },
+    "Google.Cloud.VisionAI.V1/1.0.0-beta01": {
+      "sha512": "m3ts7xgpDt+KGaLuJFE/pKYTsfdc/0YHtvXtHfJkUtozfPXz69ch8GyNpfJarioj59b3P5sDSWWuH1AX6IhE9w==",
+      "type": "package",
+      "path": "google.cloud.visionai.v1/1.0.0-beta01",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.cloud.visionai.v1.1.0.0-beta01.nupkg.sha512",
+        "google.cloud.visionai.v1.nuspec",
+        "lib/net462/Google.Cloud.VisionAI.V1.dll",
+        "lib/net462/Google.Cloud.VisionAI.V1.pdb",
+        "lib/net462/Google.Cloud.VisionAI.V1.xml",
+        "lib/netstandard2.0/Google.Cloud.VisionAI.V1.dll",
+        "lib/netstandard2.0/Google.Cloud.VisionAI.V1.pdb",
+        "lib/netstandard2.0/Google.Cloud.VisionAI.V1.xml"
       ]
     },
     "Google.LongRunning/3.5.0": {
@@ -1056,7 +1316,11 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Google.Cloud.Firestore >= 4.2.0"
+      "Google.Apis.Vision.v1 >= 1.73.0.3976",
+      "Google.Cloud.Firestore >= 4.2.0",
+      "Google.Cloud.Storage.V1 >= 4.14.0",
+      "Google.Cloud.Vision.V1 >= 3.8.0",
+      "Google.Cloud.VisionAI.V1 >= 1.0.0-beta01"
     ]
   },
   "packageFolders": {
@@ -1101,9 +1365,25 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Google.Apis.Vision.v1": {
+            "target": "Package",
+            "version": "[1.73.0.3976, )"
+          },
           "Google.Cloud.Firestore": {
             "target": "Package",
             "version": "[4.2.0, )"
+          },
+          "Google.Cloud.Storage.V1": {
+            "target": "Package",
+            "version": "[4.14.0, )"
+          },
+          "Google.Cloud.Vision.V1": {
+            "target": "Package",
+            "version": "[3.8.0, )"
+          },
+          "Google.Cloud.VisionAI.V1": {
+            "target": "Package",
+            "version": "[1.0.0-beta01, )"
           }
         },
         "imports": [
