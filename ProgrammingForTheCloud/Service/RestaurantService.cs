@@ -80,14 +80,34 @@ public class RestaurantService : IRestaurantService
 
     public async Task<List<MenuItem>> GetMenuAsync(string restaurantId)
     {
-        // Make sure you are using the variable 'restaurantId' here
         var menuSnapshot = await _db.Collection("Restaurants")
             .Document(restaurantId)
-            .Collection("Menu") // or "Menus" depending on your DB
+            .Collection("Menu")
             .GetSnapshotAsync();
 
-        return menuSnapshot.Documents.Select(doc => doc.ConvertTo<MenuItem>()).ToList();
+        var menuItems = new List<MenuItem>();
+
+        foreach (var doc in menuSnapshot.Documents)
+        {
+            var menuItem = doc.ConvertTo<MenuItem>();
+            menuItem.Id = doc.Id; 
+
+            
+            var imagesSnapshot = await doc.Reference.Collection("Images").Limit(1).GetSnapshotAsync();
+        
+            if (imagesSnapshot.Documents.Count > 0)
+            {
+                
+                menuItem.ImageUrl = imagesSnapshot.Documents[0].GetValue<string>("ImageUrl");
+            }
+
+            menuItems.Add(menuItem);
+        }
+
+        return menuItems;
     }
+    
+    
     public async Task<string> UploadImageAsync(IFormFile file)
     {
         var bucketName = "menu-bucket2";

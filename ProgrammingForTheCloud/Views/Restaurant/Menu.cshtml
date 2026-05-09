@@ -30,8 +30,7 @@
                     <div class="card shadow-sm h-100">
                         @if (!string.IsNullOrEmpty(menu.ImageUrl))
                         {
-                            <img src="@menu.ImageUrl" class="card-img-top"
-                                 alt="Menu image" style="height:240px;object-fit:cover;" />
+                            <img src="@Url.Action("GetMenuImage", "Restaurant", new { imageUrl = menu.ImageUrl })" class="card-img-top" alt="Menu image" style="height:240px;object-fit:cover;" />
                         }
                         <div class="card-body d-flex flex-column">
                             <a asp-controller="Restaurant"

@@ -96,6 +96,38 @@ public class RestaurantController : Controller
         return View(menuItems);
     }
     
+    [HttpGet]
+    public async Task<IActionResult> GetMenuImage(string imageUrl)
+    {
+        if (string.IsNullOrEmpty(imageUrl))
+        {
+            return NotFound();
+        }
+
+     
+        var uri = new Uri(imageUrl);
+        var fileName = uri.Segments.Last(); 
+        var bucketName = "menu-bucket2"; 
+    
+        try 
+        {
+            var storage = Google.Cloud.Storage.V1.StorageClient.Create();
+            var stream = new MemoryStream();
+        
+           
+            await storage.DownloadObjectAsync(bucketName, fileName, stream);
+            stream.Position = 0;
+        
+            
+            return File(stream, "image/jpeg"); 
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[DEBUG] Failed to load image: {ex.Message}");
+            return NotFound();
+        }
+    }
+    
     
     public async Task<IActionResult> Details(string restaurantId, string menuId)
     {
