@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/xiki/RiderProjects/ProgrammingForTheCloud/ProgrammingForTheCloud/ProgrammingForTheCloud.csproj": {}
+    "C:\\Users\\kylex\\CloudProgrammingAssignment\\ProgrammingForTheCloud\\ProgrammingForTheCloud.csproj": {}
   },
   "projects": {
-    "/home/xiki/RiderProjects/ProgrammingForTheCloud/ProgrammingForTheCloud/ProgrammingForTheCloud.csproj": {
+    "C:\\Users\\kylex\\CloudProgrammingAssignment\\ProgrammingForTheCloud\\ProgrammingForTheCloud.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/xiki/RiderProjects/ProgrammingForTheCloud/ProgrammingForTheCloud/ProgrammingForTheCloud.csproj",
+        "projectUniqueName": "C:\\Users\\kylex\\CloudProgrammingAssignment\\ProgrammingForTheCloud\\ProgrammingForTheCloud.csproj",
         "projectName": "ProgrammingForTheCloud",
-        "projectPath": "/home/xiki/RiderProjects/ProgrammingForTheCloud/ProgrammingForTheCloud/ProgrammingForTheCloud.csproj",
-        "packagesPath": "/home/xiki/.nuget/packages/",
-        "outputPath": "/home/xiki/RiderProjects/ProgrammingForTheCloud/ProgrammingForTheCloud/obj/",
+        "projectPath": "C:\\Users\\kylex\\CloudProgrammingAssignment\\ProgrammingForTheCloud\\ProgrammingForTheCloud.csproj",
+        "packagesPath": "C:\\Users\\kylex\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kylex\\CloudProgrammingAssignment\\ProgrammingForTheCloud\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/xiki/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\kylex\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -51,6 +51,10 @@
               "target": "Package",
               "version": "[4.2.0, )"
             },
+            "Google.Cloud.PubSub.V1": {
+              "target": "Package",
+              "version": "[3.34.0, )"
+            },
             "Google.Cloud.Storage.V1": {
               "target": "Package",
               "version": "[4.14.0, )"
@@ -83,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/xiki/.dotnet/sdk/8.0.418/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\kylex\\.dotnet\\sdk\\8.0.420/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

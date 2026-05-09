@@ -9,17 +9,62 @@
 
     <div class="row">
         <div class="col-md-6">
-            <form asp-action="CreateMenu" method="post" enctype="multipart/form-data">
+            <form id="uploadForm" asp-action="CreateMenu" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="restaurantId" value="@ViewBag.RestaurantId" />
                 
+
                 <div class="mb-3">
-                    <label class="form-label">Menu Item Photo</label>
-                    <input type="file" name="imageFile" class="form-control" accept="image/*" />
+                    <label class="form-label">Menu Item Photos</label>
+                    <input type="file" id="imageFiles" name="imageFiles" class="form-control" accept="image/*" multiple />
                 </div>
 
-                <button type="submit" class="btn btn-success">Save to Cloud</button>
+                <div class="progress mb-3" style="display: none; height: 25px;" id="progressContainer">
+                    <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+
+                <button type="button" id="uploadBtn" class="btn btn-success">Save to Cloud</button>
                 <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('uploadBtn').addEventListener('click', function () {
+            var form = document.getElementById('uploadForm');
+            var formData = new FormData(form);
+            
+            var xhr = new XMLHttpRequest();
+            
+        
+            document.getElementById('progressContainer').style.display = 'flex';
+            var progressBar = document.getElementById('progressBar');
+
+         
+            xhr.upload.addEventListener('progress', function (e) {
+                if (e.lengthComputable) {
+                    var percentComplete = Math.round((e.loaded / e.total) * 100);
+                    progressBar.style.width = percentComplete + '%';
+                    progressBar.innerHTML = percentComplete + '%';
+                    progressBar.setAttribute('aria-valuenow', percentComplete);
+                }
+            });
+
+        
+            xhr.addEventListener('load', function () {
+                if (xhr.status === 200 || xhr.status === 302) {
+                    setTimeout(() => {
+                        window.location.href = '@Url.Action("Index", "Restaurant")'; 
+                    }, 500);
+                } else {
+                    alert('Upload failed. Status: ' + xhr.status);
+                }
+            });
+
+            // Send the request
+            xhr.open('POST', form.action, true);
+            xhr.send(formData);
+        });
+    </script>
+}

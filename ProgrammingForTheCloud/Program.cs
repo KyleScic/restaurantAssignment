@@ -2,7 +2,7 @@ using Google.Cloud.Firestore;
 using System;
 using ProgrammingForTheCloud.Service;
 
-Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "/home/xiki/CloudKey/restaurantkey.json");
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\Users\kylex\Downloads\restaurant-491515-cbd45ad97367.json");
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-@model IEnumerable<ProgrammingForTheCloud.Models.MenuItem>
+@model IEnumerable<ProgrammingForTheCloud.Models.ParsedMenuItem>
 
 @{
     ViewData["Title"] = "Restaurant Menu";
@@ -31,18 +31,28 @@
                     <th>Category</th>
                     <th>Description</th>
                     <th class="text-end">Price</th>
-                </tr>
+                    <th class="text-center">Actions</th> </tr>
                 </thead>
                 <tbody>
                 @foreach (var item in Model)
                 {
-                    @* <tr> *@
-                    @*     <td class="fw-bold">@item.Name</td> *@
-                    @*     <td><span class="badge bg-info text-dark">@item.Category</span></td> *@
-                    @*     <td class="text-muted">@item.Description</td> *@
-                    @*     <td class="text-end fw-bold text-success"> *@
-                    @*         @item.Price.ToString("C") </td> *@
-                    @* </tr> *@
+                    <tr>
+                        <td class="fw-bold">@item.Name</td>
+                        <td><span class="badge bg-info text-dark">@item.Category</span></td>
+                        <td class="text-muted">@item.Description</td>
+                        <td class="text-end fw-bold text-success">
+                            @item.Price.ToString("C") 
+                        </td>
+                        <td class="text-center">
+                            <a asp-controller="Restaurant" 
+                               asp-action="Details" 
+                               asp-route-restaurantId="@ViewBag.RestaurantId" 
+                               asp-route-menuId="@item.Id" 
+                               class="btn btn-sm btn-primary">
+                                View Scanned Items
+                            </a>
+                        </td>
+                    </tr>
                 }
                 </tbody>
             </table>

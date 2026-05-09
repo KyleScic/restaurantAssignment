@@ -40,51 +40,71 @@ public class RestaurantController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateMenu(string restaurantId, MenuItem newMenuItem, IFormFile? imageFile)
+
+    public async Task<IActionResult> CreateMenu(string restaurantId, MenuItem newMenuItem, List<IFormFile>? imageFiles)
     {
         if (!ModelState.IsValid)
         {
-            
-            var errors = ModelState.Values.SelectMany(v => v.Errors)
-                .Select(e => e.ErrorMessage)
-                .ToList();
-
-            foreach (var error in errors)
-            {
-                Console.WriteLine($"Validation Error: {error}");
-            }
-
             return View(newMenuItem);
         }
-        
-        
-        
-        if (imageFile != null && imageFile.Length > 0)
+    
+    
+        string newMenuId = await _restaurantService.AddMenuItemAsync(restaurantId, newMenuItem);
+    
+     
+        if (imageFiles != null && imageFiles.Count > 0)
         {
-            newMenuItem.ImageUrl = await _restaurantService.UploadImageAsync(imageFile);
-            string rawMenuText = await _restaurantService.ExtractTextFromMenuImageAsync(imageFile);
-
-            if (!string.IsNullOrEmpty(rawMenuText))
+            foreach (var file in imageFiles)
             {
-                newMenuItem.Data = rawMenuText;
-                _restaurantService.ParseAnyMenuText(rawMenuText);
+                if (file.Length > 0)
+                {
+                   
+                    string uploadedImageUrl = await _restaurantService.UploadImageAsync(file);
+            
+                    
+                    await _restaurantService.AddMenuImageAsync(restaurantId, newMenuId, uploadedImageUrl);
+
+                   
+                    await _restaurantService.PublishOcrMessageAsync(restaurantId, newMenuId, uploadedImageUrl);
+                }
             }
         }
-        
-        await _restaurantService.AddMenuItemAsync(restaurantId, newMenuItem);
-        return RedirectToAction("Details", "Restaurant", new { id = restaurantId });
+    
+       
+        return RedirectToAction("Details", new { restaurantId = restaurantId, menuId = newMenuId });
     }
 
-    public async Task<IActionResult> Menu(string id)
+  
+   
+    public async Task<IActionResult> Menu(string restaurantId)
     {
-        if (string.IsNullOrEmpty(id))
+    
+        if (string.IsNullOrEmpty(restaurantId))
         {
             return RedirectToAction("Index");
-            
         }
 
-        var menuItems = await _restaurantService.GetMenuAsync(id);
-        ViewBag.RestaurantId = id;
+       
+        var menuItems = await _restaurantService.GetMenuAsync(restaurantId);
+    
+       
+        ViewBag.RestaurantId = restaurantId;
+    
         return View(menuItems);
+    }
+    
+    
+    public async Task<IActionResult> Details(string restaurantId, string menuId)
+    {
+        
+        Console.WriteLine($"[DEBUG] Looking for Restaurant: '{restaurantId}'");
+        Console.WriteLine($"[DEBUG] Looking for Menu: '{menuId}'");
+
+        var items = await _restaurantService.GetParsedMenuItemsAsync(restaurantId, menuId);
+    
+      
+        Console.WriteLine($"[DEBUG] Found {items.Count} items in Firestore!");
+    
+        return View(items);
     }
 }

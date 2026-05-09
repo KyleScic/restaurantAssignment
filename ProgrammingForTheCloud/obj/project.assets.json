@@ -200,10 +200,10 @@
           }
         }
       },
-      "Google.Cloud.Iam.V1/3.4.0": {
+      "Google.Cloud.Iam.V1/3.5.0": {
         "type": "package",
         "dependencies": {
-          "Google.Api.Gax.Grpc": "[4.9.0, 5.0.0)"
+          "Google.Api.Gax.Grpc": "[4.12.1, 5.0.0)"
         },
         "compile": {
           "lib/netstandard2.0/Google.Cloud.Iam.V1.dll": {
@@ -228,6 +228,23 @@
         },
         "runtime": {
           "lib/netstandard2.0/Google.Cloud.Location.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Cloud.PubSub.V1/3.34.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Api.Gax.Grpc": "[4.13.1, 5.0.0)",
+          "Google.Cloud.Iam.V1": "[3.5.0, 4.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Cloud.PubSub.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Cloud.PubSub.V1.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -808,16 +825,16 @@
         "lib/netstandard2.0/Google.Cloud.Firestore.V1.xml"
       ]
     },
-    "Google.Cloud.Iam.V1/3.4.0": {
-      "sha512": "MBs/hyBOiTWZ+v9UHrXjWIxgeJo5q6PI2kmA0HMG3wrL4xIsctZLdM6KQjic8tc3kMnKlPb6gcInN8xQjFiM3g==",
+    "Google.Cloud.Iam.V1/3.5.0": {
+      "sha512": "CTLBAQ7WxsLoA4lovpvhF4MRUJH64smrIjuD/0jDrLs6zpbpf+f8Ur8ekRKv67kwlpN6Ug0q7EuT2csWDEczlQ==",
       "type": "package",
-      "path": "google.cloud.iam.v1/3.4.0",
+      "path": "google.cloud.iam.v1/3.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
         "NuGetIcon.png",
-        "google.cloud.iam.v1.3.4.0.nupkg.sha512",
+        "google.cloud.iam.v1.3.5.0.nupkg.sha512",
         "google.cloud.iam.v1.nuspec",
         "lib/net462/Google.Cloud.Iam.V1.dll",
         "lib/net462/Google.Cloud.Iam.V1.pdb",
@@ -844,6 +861,25 @@
         "lib/netstandard2.0/Google.Cloud.Location.dll",
         "lib/netstandard2.0/Google.Cloud.Location.pdb",
         "lib/netstandard2.0/Google.Cloud.Location.xml"
+      ]
+    },
+    "Google.Cloud.PubSub.V1/3.34.0": {
+      "sha512": "e9OLVR61r11vC8sWt1CeSo4kJFyiaT/WKRnNI4/ysafxlLWe1cgEN/O14SGdmowa8N6qe4VCPPA6oHcMFKMS8w==",
+      "type": "package",
+      "path": "google.cloud.pubsub.v1/3.34.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.cloud.pubsub.v1.3.34.0.nupkg.sha512",
+        "google.cloud.pubsub.v1.nuspec",
+        "lib/net462/Google.Cloud.PubSub.V1.dll",
+        "lib/net462/Google.Cloud.PubSub.V1.pdb",
+        "lib/net462/Google.Cloud.PubSub.V1.xml",
+        "lib/netstandard2.0/Google.Cloud.PubSub.V1.dll",
+        "lib/netstandard2.0/Google.Cloud.PubSub.V1.pdb",
+        "lib/netstandard2.0/Google.Cloud.PubSub.V1.xml"
       ]
     },
     "Google.Cloud.Storage.V1/4.14.0": {
@@ -1318,25 +1354,26 @@
     "net8.0": [
       "Google.Apis.Vision.v1 >= 1.73.0.3976",
       "Google.Cloud.Firestore >= 4.2.0",
+      "Google.Cloud.PubSub.V1 >= 3.34.0",
       "Google.Cloud.Storage.V1 >= 4.14.0",
       "Google.Cloud.Vision.V1 >= 3.8.0",
       "Google.Cloud.VisionAI.V1 >= 1.0.0-beta01"
     ]
   },
   "packageFolders": {
-    "/home/xiki/.nuget/packages/": {}
+    "C:\\Users\\kylex\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/xiki/RiderProjects/ProgrammingForTheCloud/ProgrammingForTheCloud/ProgrammingForTheCloud.csproj",
+      "projectUniqueName": "C:\\Users\\kylex\\CloudProgrammingAssignment\\ProgrammingForTheCloud\\ProgrammingForTheCloud.csproj",
       "projectName": "ProgrammingForTheCloud",
-      "projectPath": "/home/xiki/RiderProjects/ProgrammingForTheCloud/ProgrammingForTheCloud/ProgrammingForTheCloud.csproj",
-      "packagesPath": "/home/xiki/.nuget/packages/",
-      "outputPath": "/home/xiki/RiderProjects/ProgrammingForTheCloud/ProgrammingForTheCloud/obj/",
+      "projectPath": "C:\\Users\\kylex\\CloudProgrammingAssignment\\ProgrammingForTheCloud\\ProgrammingForTheCloud.csproj",
+      "packagesPath": "C:\\Users\\kylex\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kylex\\CloudProgrammingAssignment\\ProgrammingForTheCloud\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/xiki/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\kylex\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1373,6 +1410,10 @@
             "target": "Package",
             "version": "[4.2.0, )"
           },
+          "Google.Cloud.PubSub.V1": {
+            "target": "Package",
+            "version": "[3.34.0, )"
+          },
           "Google.Cloud.Storage.V1": {
             "target": "Package",
             "version": "[4.14.0, )"
@@ -1405,7 +1446,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/xiki/.dotnet/sdk/8.0.418/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\kylex\\.dotnet\\sdk\\8.0.420/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
