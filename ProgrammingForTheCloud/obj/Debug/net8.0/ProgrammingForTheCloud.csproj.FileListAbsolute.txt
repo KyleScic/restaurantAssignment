@@ -122,3 +122,5 @@ C:\Users\kylex\CloudProgrammingAssignment\ProgrammingForTheCloud\obj\Debug\net8.
 C:\Users\kylex\CloudProgrammingAssignment\ProgrammingForTheCloud\obj\Debug\net8.0\ProgrammingForTheCloud.genruntimeconfig.cache
 C:\Users\kylex\CloudProgrammingAssignment\ProgrammingForTheCloud\obj\Debug\net8.0\ref\ProgrammingForTheCloud.dll
 C:\Users\kylex\CloudProgrammingAssignment\ProgrammingForTheCloud\bin\Debug\net8.0\Google.Cloud.PubSub.V1.dll
+C:\Users\kylex\CloudProgrammingAssignment\ProgrammingForTheCloud\bin\Debug\net8.0\Google.Cloud.SecretManager.V1.dll
+C:\Users\kylex\CloudProgrammingAssignment\ProgrammingForTheCloud\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll

@@ -11,9 +11,11 @@
           "Google.Apis.Vision.v1": "1.73.0.3976",
           "Google.Cloud.Firestore": "4.2.0",
           "Google.Cloud.PubSub.V1": "3.34.0",
+          "Google.Cloud.SecretManager.V1": "2.7.0",
           "Google.Cloud.Storage.V1": "4.14.0",
           "Google.Cloud.Vision.V1": "3.8.0",
-          "Google.Cloud.VisionAI.V1": "1.0.0-beta01"
+          "Google.Cloud.VisionAI.V1": "1.0.0-beta01",
+          "Microsoft.AspNetCore.Authentication.Google": "8.0.0"
         },
         "runtime": {
           "ProgrammingForTheCloud.dll": {}
@@ -193,6 +195,19 @@
           }
         }
       },
+      "Google.Cloud.SecretManager.V1/2.7.0": {
+        "dependencies": {
+          "Google.Api.Gax.Grpc": "4.13.1",
+          "Google.Cloud.Iam.V1": "3.5.0",
+          "Google.Cloud.Location": "2.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Cloud.SecretManager.V1.dll": {
+            "assemblyVersion": "2.7.0.0",
+            "fileVersion": "2.7.0.0"
+          }
+        }
+      },
       "Google.Cloud.Storage.V1/4.14.0": {
         "dependencies": {
           "Google.Api.Gax.Rest": "4.12.1",
@@ -290,6 +305,14 @@
           "lib/net8.0/Grpc.Net.Common.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.71.0.0"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/8.0.0": {
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53112"
           }
         }
       },
@@ -454,6 +477,13 @@
       "path": "google.cloud.pubsub.v1/3.34.0",
       "hashPath": "google.cloud.pubsub.v1.3.34.0.nupkg.sha512"
     },
+    "Google.Cloud.SecretManager.V1/2.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5Ol6+VCNOI1X7T3WthLB0Y5YyHRKFRycG93QOLU1m9xqrbgXGftwzwzsRiPUWGsWJgVCnYobQiqw2VYYPWyC9w==",
+      "path": "google.cloud.secretmanager.v1/2.7.0",
+      "hashPath": "google.cloud.secretmanager.v1.2.7.0.nupkg.sha512"
+    },
     "Google.Cloud.Storage.V1/4.14.0": {
       "type": "package",
       "serviceable": true,
@@ -516,6 +546,13 @@
       "sha512": "sha512-v0c8R97TwRYwNXlC8GyRXwYTCNufpDfUtj9la+wUrZFzVWkFJuNAltU+c0yI3zu0jl54k7en6u2WKgZgd57r2Q==",
       "path": "grpc.net.common/2.71.0",
       "hashPath": "grpc.net.common.2.71.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Google/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dPE/IiHhBqnJ7WrD72T20+DcHGCaR9F4RmIFap83W1Ts/ze5gBVe4Ii02qJdJzkUniQy5S/v42zpRIgJTPzPqQ==",
+      "path": "microsoft.aspnetcore.authentication.google/8.0.0",
+      "hashPath": "microsoft.aspnetcore.authentication.google.8.0.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/10.0.3": {
       "type": "package",

@@ -249,6 +249,24 @@
           }
         }
       },
+      "Google.Cloud.SecretManager.V1/2.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Api.Gax.Grpc": "[4.12.1, 5.0.0)",
+          "Google.Cloud.Iam.V1": "[3.5.0, 4.0.0)",
+          "Google.Cloud.Location": "[2.4.0, 3.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Cloud.SecretManager.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Cloud.SecretManager.V1.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Google.Cloud.Storage.V1/4.14.0": {
         "type": "package",
         "dependencies": {
@@ -393,6 +411,22 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "Microsoft.Bcl.AsyncInterfaces/10.0.3": {
         "type": "package",
@@ -882,6 +916,25 @@
         "lib/netstandard2.0/Google.Cloud.PubSub.V1.xml"
       ]
     },
+    "Google.Cloud.SecretManager.V1/2.7.0": {
+      "sha512": "5Ol6+VCNOI1X7T3WthLB0Y5YyHRKFRycG93QOLU1m9xqrbgXGftwzwzsRiPUWGsWJgVCnYobQiqw2VYYPWyC9w==",
+      "type": "package",
+      "path": "google.cloud.secretmanager.v1/2.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.cloud.secretmanager.v1.2.7.0.nupkg.sha512",
+        "google.cloud.secretmanager.v1.nuspec",
+        "lib/net462/Google.Cloud.SecretManager.V1.dll",
+        "lib/net462/Google.Cloud.SecretManager.V1.pdb",
+        "lib/net462/Google.Cloud.SecretManager.V1.xml",
+        "lib/netstandard2.0/Google.Cloud.SecretManager.V1.dll",
+        "lib/netstandard2.0/Google.Cloud.SecretManager.V1.pdb",
+        "lib/netstandard2.0/Google.Cloud.SecretManager.V1.xml"
+      ]
+    },
     "Google.Cloud.Storage.V1/4.14.0": {
       "sha512": "CLoAz9BDzqGEXWKWPuUxlk8/wcabsONxCa3MEQzxhbEGoKT1TOT6KnWNl1IhrBGqNw7IWtR/Xg06XHS8JYF1qQ==",
       "type": "package",
@@ -1078,6 +1131,21 @@
         "lib/netstandard2.1/Grpc.Net.Common.pdb",
         "lib/netstandard2.1/Grpc.Net.Common.xml",
         "packageIcon.png"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Google/8.0.0": {
+      "sha512": "dPE/IiHhBqnJ7WrD72T20+DcHGCaR9F4RmIFap83W1Ts/ze5gBVe4Ii02qJdJzkUniQy5S/v42zpRIgJTPzPqQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.google/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.xml",
+        "microsoft.aspnetcore.authentication.google.8.0.0.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.google.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/10.0.3": {
@@ -1355,9 +1423,11 @@
       "Google.Apis.Vision.v1 >= 1.73.0.3976",
       "Google.Cloud.Firestore >= 4.2.0",
       "Google.Cloud.PubSub.V1 >= 3.34.0",
+      "Google.Cloud.SecretManager.V1 >= 2.7.0",
       "Google.Cloud.Storage.V1 >= 4.14.0",
       "Google.Cloud.Vision.V1 >= 3.8.0",
-      "Google.Cloud.VisionAI.V1 >= 1.0.0-beta01"
+      "Google.Cloud.VisionAI.V1 >= 1.0.0-beta01",
+      "Microsoft.AspNetCore.Authentication.Google >= 8.0.0"
     ]
   },
   "packageFolders": {
@@ -1414,6 +1484,10 @@
             "target": "Package",
             "version": "[3.34.0, )"
           },
+          "Google.Cloud.SecretManager.V1": {
+            "target": "Package",
+            "version": "[2.7.0, )"
+          },
           "Google.Cloud.Storage.V1": {
             "target": "Package",
             "version": "[4.14.0, )"
@@ -1425,6 +1499,10 @@
           "Google.Cloud.VisionAI.V1": {
             "target": "Package",
             "version": "[1.0.0-beta01, )"
+          },
+          "Microsoft.AspNetCore.Authentication.Google": {
+            "target": "Package",
+            "version": "[8.0.0, )"
           }
         },
         "imports": [

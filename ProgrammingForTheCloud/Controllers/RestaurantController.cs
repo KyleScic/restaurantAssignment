@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using ProgrammingForTheCloud.Models;
 using ProgrammingForTheCloud.Service;
 
@@ -6,11 +8,18 @@ namespace ProgrammingForTheCloud.Controllers;
 
 public class RestaurantController : Controller
 {
+    
+    
     private readonly IRestaurantService _restaurantService;
+    private readonly IMemoryCache _cache;
+    
+    
+    
 
-    public RestaurantController(IRestaurantService restaurantService)
+    public RestaurantController(IRestaurantService restaurantService,IMemoryCache cache)
     {
         _restaurantService = restaurantService;
+        _cache = cache;
     }
 
     public async Task<IActionResult> Index()
@@ -19,11 +28,14 @@ public class RestaurantController : Controller
         return View(restaurants);
     }
 
+    [Authorize]
     public IActionResult Create()
     {
         return View();
     }
 
+    
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Create(Restaurant newRestaurant)
     {
@@ -39,40 +51,46 @@ public class RestaurantController : Controller
         return View();
     }
 
+    [Authorize]
     [HttpPost]
-
-    public async Task<IActionResult> CreateMenu(string restaurantId, MenuItem newMenuItem, List<IFormFile>? imageFiles)
+    public async Task<IActionResult> CreateMenu(string restaurantId, IFormFile[] imageFiles)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return View(newMenuItem);
-        }
-    
-    
-        string newMenuId = await _restaurantService.AddMenuItemAsync(restaurantId, newMenuItem);
-    
-     
-        if (imageFiles != null && imageFiles.Count > 0)
-        {
+            if (imageFiles == null || imageFiles.Length == 0)
+            {
+                return BadRequest("No files uploaded.");
+            }
+
+   
             foreach (var file in imageFiles)
             {
-                if (file.Length > 0)
-                {
-                   
-                    string uploadedImageUrl = await _restaurantService.UploadImageAsync(file);
-            
-                    
-                    await _restaurantService.AddMenuImageAsync(restaurantId, newMenuId, uploadedImageUrl);
+         
+                string imageUrl = await _restaurantService.UploadImageAsync(file);
 
-                   
-                    await _restaurantService.PublishOcrMessageAsync(restaurantId, newMenuId, uploadedImageUrl);
-                }
+        
+                var tempItem = new MenuItem();
+                string menuId = await _restaurantService.AddMenuItemAsync(restaurantId, tempItem);
+
+         
+                await _restaurantService.AddMenuImageAsync(restaurantId, menuId, imageUrl);
+
+            
+                await _restaurantService.PublishOcrMessageAsync(restaurantId, menuId, imageUrl);
             }
-        }
-    
+
        
-        return RedirectToAction("Details", new { restaurantId = restaurantId, menuId = newMenuId });
+            _cache.Remove("MenuCatalog");
+
+            return Ok(new { success = true, message = "Menu uploaded, sent to OCR, and cache cleared!" });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[DEBUG] Error uploading menu: {ex.Message}");
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
     }
+    
 
   
    
