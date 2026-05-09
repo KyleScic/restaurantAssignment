@@ -153,6 +153,7 @@ public class RestaurantService : IRestaurantService
         catch (Exception ex)
         {
             Console.WriteLine("CRITICAL PUB/SUB ERROR: " + ex.Message);
+            throw;
         }
     }
 
@@ -277,6 +278,8 @@ public class RestaurantService : IRestaurantService
 
         return parsedItems;
     }
+    
+    
 }
 
 
