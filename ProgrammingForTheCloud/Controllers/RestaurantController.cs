@@ -76,20 +76,23 @@ public class RestaurantController : Controller
 
   
    
-    public async Task<IActionResult> Menu(string restaurantId)
+    [HttpGet]
+    public async Task<IActionResult> Menu(string id)
     {
-    
-        if (string.IsNullOrEmpty(restaurantId))
+        
+        if (string.IsNullOrEmpty(id))
         {
+            Console.WriteLine("[DEBUG] The ID was null! Redirecting...");
             return RedirectToAction("Index");
         }
 
-       
-        var menuItems = await _restaurantService.GetMenuAsync(restaurantId);
-    
-       
-        ViewBag.RestaurantId = restaurantId;
-    
+        Console.WriteLine($"[DEBUG] Successfully caught ID: {id}");
+
+        
+        var menuItems = await _restaurantService.GetMenuAsync(id);
+        
+        ViewBag.RestaurantId = id;
+
         return View(menuItems);
     }
     
