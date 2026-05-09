@@ -6,9 +6,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 
 
-Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\Users\kylex\Downloads\restaurant-491515-cbd45ad97367.json");
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+if (builder.Environment.IsDevelopment())
+{
+    Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\Users\kylex\Downloads\restaurant-491515-cbd45ad97367.json");
+}
 
 
 string projectId = "restaurant-491515"; 
