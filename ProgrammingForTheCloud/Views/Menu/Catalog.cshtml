@@ -1,0 +1,115 @@
+﻿@model List<ProgrammingForTheCloud.Models.ParsedMenuItem>
+
+@{
+    ViewData["Title"] = "Menu Catalog";
+}
+
+<div class="container mt-4">
+    <h2>Restaurant Menu Catalog</h2>
+    <p>Search for your favorite dishes and compare prices!</p>
+
+    <form method="get" action="/Menu/Catalog" class="mb-4 bg-light p-3 rounded">
+        <div class="row align-items-end">
+            <div class="col-md-5">
+                <label class="form-label">Search Dishes</label>
+                <input type="text" name="searchQuery" value="@ViewBag.SearchQuery" class="form-control" placeholder="e.g., Pasta, Burger..." />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Sort by Price</label>
+                <select name="sortOrder" class="form-select">
+                    @if (ViewBag.SortOrder == "desc")
+                    {
+                        <option value="asc">Low to High</option>
+                        <option value="desc" selected>High to Low</option>
+                    }
+                    else
+                    {
+                        <option value="asc" selected>Low to High</option>
+                        <option value="desc">High to Low</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">Search & Sort</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <h6 class="card-subtitle mb-2 text-primary">€@item.Price.ToString("0.00")</h6>
+                            <span class="badge bg-secondary mb-2">@item.Category</span>
+                            <p class="card-text text-muted small">@item.Description</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <div class="input-group input-group-sm">
+                                <select class="form-select" id="lang-@item.Id">
+                                    <option value="en">English</option>
+                                    <option value="mt">Maltese</option>
+                                    <option value="it">Italian</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
+                                </select>
+                                <button class="btn btn-outline-info" type="button" onclick="translateItem('@item.Id')">Translate</button>
+                            </div>
+                            <div class="mt-2 text-success small" id="translation-result-@item.Id"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    No confirmed menu items found. Please check back later or try a different search!
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function translateItem(itemId) {
+            // Get the selected language
+            const langSelect = document.getElementById('lang-' + itemId);
+            const targetLang = langSelect.options[langSelect.selectedIndex].value;
+            
+            // Grab the text from the UI to translate (we'll translate the Name)
+            const itemCard = langSelect.closest('.card');
+            const textToTranslate = itemCard.querySelector('.card-title').innerText;
+
+            const resultDiv = document.getElementById('translation-result-' + itemId);
+            resultDiv.innerHTML = "<em>Translating...</em>";
+
+            // Call our MenuController
+            $.ajax({
+                type: "POST",
+                url: "/Menu/TranslateText",
+                data: { 
+                    itemId: itemId, 
+                    textToTranslate: textToTranslate, 
+                    targetLanguage: targetLang 
+                },
+                success: function (response) {
+                    if (response.success) {
+                        resultDiv.innerHTML = `<strong>${response.translation}</strong> <br><small class="text-muted">(Loaded from: ${response.source})</small>`;
+                    } else {
+                        resultDiv.innerHTML = `<span class="text-danger">Error: ${response.message}</span>`;
+                    }
+                },
+                error: function () {
+                    resultDiv.innerHTML = `<span class="text-danger">Failed to connect to server.</span>`;
+                }
+            });
+        }
+    </script>
+}

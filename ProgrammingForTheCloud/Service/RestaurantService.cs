@@ -26,6 +26,7 @@ public interface IRestaurantService
     List<OcrMenuResult> ParseAnyMenuText(string rawOcrText);
     Task AddMenuImageAsync(string restaurantId, string menuId, string imageUrl);
     Task<List<ParsedMenuItem>> GetParsedMenuItemsAsync(string restaurantId, string menuId);
+    Task<List<ParsedMenuItem>> GetCatalogAsync(string searchQuery, string sortOrder);
 }
 public class RestaurantService : IRestaurantService
 {
@@ -105,6 +106,46 @@ public class RestaurantService : IRestaurantService
         }
 
         return menuItems;
+    }
+    
+    public async Task<List<ParsedMenuItem>> GetCatalogAsync(string searchQuery, string sortOrder)
+    {
+        
+        Query query = _db.CollectionGroup("ParsedItems");
+        QuerySnapshot snapshot = await query.GetSnapshotAsync();
+    
+        var items = new List<ParsedMenuItem>();
+
+        foreach (var document in snapshot.Documents)
+        {
+            if (document.Exists)
+            {
+                var item = document.ConvertTo<ParsedMenuItem>();
+                item.Id = document.Id;
+                items.Add(item);
+            }
+        }
+
+        
+        if (!string.IsNullOrWhiteSpace(searchQuery))
+        {
+            items = items.Where(i => 
+                (i.Name != null && i.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)) || 
+                (i.Description != null && i.Description.Contains(searchQuery, StringComparison.OrdinalIgnoreCase))
+            ).ToList();
+        }
+
+        
+        if (sortOrder == "desc")
+        {
+            items = items.OrderByDescending(i => i.Price).ToList();
+        }
+        else
+        {
+            items = items.OrderBy(i => i.Price).ToList(); 
+        }
+
+        return items;
     }
     
     
