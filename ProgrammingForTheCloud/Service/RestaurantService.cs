@@ -14,43 +14,41 @@ public interface IRestaurantService
 {
     Task AddRestaurantAsync(Restaurant restaurant);
     Task<List<Restaurant>> GetAllRestaurantsAsync();
-    
+
     Task<string> AddMenuItemAsync(string restaurantId, MenuItem item);
     Task<List<MenuItem>> GetMenuAsync(string restaurantId);
     Task<string> UploadImageAsync(IFormFile file);
-    
-  
+
     Task PublishOcrMessageAsync(string restaurantId, string menuId, string imageUrl);
 
-    
     List<OcrMenuResult> ParseAnyMenuText(string rawOcrText);
     Task AddMenuImageAsync(string restaurantId, string menuId, string imageUrl);
     Task<List<ParsedMenuItem>> GetParsedMenuItemsAsync(string restaurantId, string menuId);
     Task<List<ParsedMenuItem>> GetCatalogAsync(string searchQuery, string sortOrder);
 }
+
 public class RestaurantService : IRestaurantService
 {
     private readonly FirestoreDb _db;
+    private readonly StorageClient _storage;
 
-    public RestaurantService(FirestoreDb db)
+    public RestaurantService(FirestoreDb db, StorageClient storage)
     {
         _db = db;
+        _storage = storage;
     }
 
-    
     public async Task AddRestaurantAsync(Restaurant restaurant)
     {
         CollectionReference collection = _db.Collection("Restaurants");
-        await collection.AddAsync(restaurant); 
+        await collection.AddAsync(restaurant);
     }
 
-  
     public async Task<List<Restaurant>> GetAllRestaurantsAsync()
     {
         CollectionReference collection = _db.Collection("Restaurants");
         QuerySnapshot snapshot = await collection.GetSnapshotAsync();
-        
-        
+
         List<Restaurant> restaurantsList = new List<Restaurant>();
 
         foreach (DocumentSnapshot document in snapshot.Documents)
@@ -58,25 +56,19 @@ public class RestaurantService : IRestaurantService
             if (document.Exists)
             {
                 Restaurant rest = document.ConvertTo<Restaurant>();
-                
-                
-                rest.Id = document.Id; 
-                
+                rest.Id = document.Id;
                 restaurantsList.Add(rest);
             }
         }
-        
-      
+
         return restaurantsList;
     }
 
     public async Task<string> AddMenuItemAsync(string restaurantId, MenuItem item)
     {
         CollectionReference menuCollection = _db.Collection("Restaurants").Document(restaurantId).Collection("Menu");
-        
         DocumentReference result = await menuCollection.AddAsync(item);
         return result.Id;
-
     }
 
     public async Task<List<MenuItem>> GetMenuAsync(string restaurantId)
@@ -91,14 +83,12 @@ public class RestaurantService : IRestaurantService
         foreach (var doc in menuSnapshot.Documents)
         {
             var menuItem = doc.ConvertTo<MenuItem>();
-            menuItem.Id = doc.Id; 
+            menuItem.Id = doc.Id;
 
-            
             var imagesSnapshot = await doc.Reference.Collection("Images").Limit(1).GetSnapshotAsync();
-        
+
             if (imagesSnapshot.Documents.Count > 0)
             {
-                
                 menuItem.ImageUrl = imagesSnapshot.Documents[0].GetValue<string>("ImageUrl");
             }
 
@@ -107,13 +97,12 @@ public class RestaurantService : IRestaurantService
 
         return menuItems;
     }
-    
+
     public async Task<List<ParsedMenuItem>> GetCatalogAsync(string searchQuery, string sortOrder)
     {
-        
         Query query = _db.CollectionGroup("ParsedItems");
         QuerySnapshot snapshot = await query.GetSnapshotAsync();
-    
+
         var items = new List<ParsedMenuItem>();
 
         foreach (var document in snapshot.Documents)
@@ -126,53 +115,45 @@ public class RestaurantService : IRestaurantService
             }
         }
 
-        
         if (!string.IsNullOrWhiteSpace(searchQuery))
         {
-            items = items.Where(i => 
-                (i.Name != null && i.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)) || 
+            items = items.Where(i =>
+                (i.Name != null && i.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)) ||
                 (i.Description != null && i.Description.Contains(searchQuery, StringComparison.OrdinalIgnoreCase))
             ).ToList();
         }
 
-        
         if (sortOrder == "desc")
         {
             items = items.OrderByDescending(i => i.Price).ToList();
         }
         else
         {
-            items = items.OrderBy(i => i.Price).ToList(); 
+            items = items.OrderBy(i => i.Price).ToList();
         }
 
         return items;
     }
-    
-    
+
     public async Task<string> UploadImageAsync(IFormFile file)
     {
         var bucketName = "menu-bucket2";
-        var storage = StorageClient.Create();
-        
         var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
 
         using var memoryStream = new MemoryStream();
         await file.CopyToAsync(memoryStream);
 
-        var data = await storage.UploadObjectAsync(bucketName, fileName, file.ContentType, memoryStream);
+        await _storage.UploadObjectAsync(bucketName, fileName, file.ContentType, memoryStream);
         return $"https://storage.googleapis.com/{bucketName}/{fileName}";
-
-
-
     }
-    
+
     public async Task PublishOcrMessageAsync(string restaurantId, string menuId, string imageUrl)
     {
-        try 
+        try
         {
             Console.WriteLine("Attempting to send message to Pub/Sub...");
-        
-            string projectId = "restaurant-491515"; 
+
+            string projectId = "restaurant-491515";
             TopicName topicName = TopicName.FromProjectTopic(projectId, "menu-ocr-topic");
 
             PublisherClient publisher = await PublisherClient.CreateAsync(topicName);
@@ -186,9 +167,8 @@ public class RestaurantService : IRestaurantService
 
             string messageText = JsonSerializer.Serialize(messagePayload);
 
-            // Publish to Google Cloud
             await publisher.PublishAsync(messageText);
-        
+
             Console.WriteLine("SUCCESS: Message published to Google Cloud Pub/Sub!");
         }
         catch (Exception ex)
@@ -212,33 +192,30 @@ public class RestaurantService : IRestaurantService
         var response = await client.DetectDocumentTextAsync(image);
 
         return response?.Text;
-
-
     }
-    
+
     public async Task AddMenuImageAsync(string restaurantId, string menuId, string imageUrl)
     {
-        
         CollectionReference imageCollection = _db.Collection("Restaurants")
             .Document(restaurantId)
             .Collection("Menu")
             .Document(menuId)
             .Collection("Images");
-    
+
         await imageCollection.AddAsync(new Dictionary<string, object>
         {
             { "ImageUrl", imageUrl },
             { "UploadedAt", Google.Cloud.Firestore.Timestamp.GetCurrentTimestamp() }
         });
     }
-    
+
     public List<OcrMenuResult> ParseAnyMenuText(string rawOcrText)
     {
         var results = new List<OcrMenuResult>();
         var lines = rawOcrText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-        
+
         string currentCategory = "General";
-        string pendingText = ""; 
+        string pendingText = "";
 
         var priceRegex = new Regex(@"\d+\.\d{2}");
         var currencyRegex = new Regex(@"[$€£]");
@@ -262,7 +239,7 @@ public class RestaurantService : IRestaurantService
                 if (!string.IsNullOrEmpty(textOnSameLine))
                 {
                     itemName = textOnSameLine;
-                    itemDescription = pendingText; 
+                    itemDescription = pendingText;
                 }
                 else
                 {
@@ -282,7 +259,7 @@ public class RestaurantService : IRestaurantService
                     });
                 }
 
-                pendingText = ""; 
+                pendingText = "";
             }
             else
             {
@@ -296,16 +273,14 @@ public class RestaurantService : IRestaurantService
 
         return results;
     }
-    
-    
+
     public async Task<List<ParsedMenuItem>> GetParsedMenuItemsAsync(string restaurantId, string menuId)
     {
         var parsedItems = new List<ParsedMenuItem>();
-    
-        
+
         var parsedItemsRef = _db.Collection("Restaurants").Document(restaurantId)
-            .Collection("Menu").Document(menuId) 
-            .Collection("ParsedItems");          
+            .Collection("Menu").Document(menuId)
+            .Collection("ParsedItems");
 
         var snapshot = await parsedItemsRef.GetSnapshotAsync();
 
@@ -319,10 +294,4 @@ public class RestaurantService : IRestaurantService
 
         return parsedItems;
     }
-    
-    
 }
-
-
-    
-    

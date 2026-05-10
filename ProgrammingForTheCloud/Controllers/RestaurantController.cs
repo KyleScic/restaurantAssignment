@@ -3,23 +3,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using ProgrammingForTheCloud.Models;
 using ProgrammingForTheCloud.Service;
+using Google.Cloud.Storage.V1;
 
 namespace ProgrammingForTheCloud.Controllers;
 
 public class RestaurantController : Controller
 {
-    
-    
     private readonly IRestaurantService _restaurantService;
     private readonly IMemoryCache _cache;
-    
-    
-    
+    private readonly StorageClient _storage;
 
-    public RestaurantController(IRestaurantService restaurantService,IMemoryCache cache)
+    public RestaurantController(
+        IRestaurantService restaurantService,
+        IMemoryCache cache,
+        StorageClient storage)
     {
         _restaurantService = restaurantService;
         _cache = cache;
+        _storage = storage;
     }
 
     public async Task<IActionResult> Index()
@@ -34,7 +35,6 @@ public class RestaurantController : Controller
         return View();
     }
 
-    
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> Create(Restaurant newRestaurant)
@@ -42,11 +42,10 @@ public class RestaurantController : Controller
         await _restaurantService.AddRestaurantAsync(newRestaurant);
         return RedirectToAction("Index");
     }
-    
+
     [HttpGet]
     public IActionResult CreateMenu(string restaurantId)
     {
-       
         ViewBag.RestaurantId = restaurantId;
         return View();
     }
@@ -62,24 +61,18 @@ public class RestaurantController : Controller
                 return BadRequest("No files uploaded.");
             }
 
-   
             foreach (var file in imageFiles)
             {
-         
                 string imageUrl = await _restaurantService.UploadImageAsync(file);
 
-        
                 var tempItem = new MenuItem();
                 string menuId = await _restaurantService.AddMenuItemAsync(restaurantId, tempItem);
 
-         
                 await _restaurantService.AddMenuImageAsync(restaurantId, menuId, imageUrl);
 
-            
                 await _restaurantService.PublishOcrMessageAsync(restaurantId, menuId, imageUrl);
             }
 
-       
             _cache.Remove("MenuCatalog");
 
             return Ok(new { success = true, message = "Menu uploaded, sent to OCR, and cache cleared!" });
@@ -90,14 +83,10 @@ public class RestaurantController : Controller
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
-    
 
-  
-   
     [HttpGet]
     public async Task<IActionResult> Menu(string id)
     {
-        
         if (string.IsNullOrEmpty(id))
         {
             Console.WriteLine("[DEBUG] The ID was null! Redirecting...");
@@ -106,14 +95,13 @@ public class RestaurantController : Controller
 
         Console.WriteLine($"[DEBUG] Successfully caught ID: {id}");
 
-        
         var menuItems = await _restaurantService.GetMenuAsync(id);
-        
+
         ViewBag.RestaurantId = id;
 
         return View(menuItems);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetMenuImage(string imageUrl)
     {
@@ -122,22 +110,18 @@ public class RestaurantController : Controller
             return NotFound();
         }
 
-     
         var uri = new Uri(imageUrl);
-        var fileName = uri.Segments.Last(); 
-        var bucketName = "menu-bucket2"; 
-    
-        try 
+        var fileName = uri.Segments.Last();
+        var bucketName = "menu-bucket2";
+
+        try
         {
-            var storage = Google.Cloud.Storage.V1.StorageClient.Create();
             var stream = new MemoryStream();
-        
-           
-            await storage.DownloadObjectAsync(bucketName, fileName, stream);
+
+            await _storage.DownloadObjectAsync(bucketName, fileName, stream);
             stream.Position = 0;
-        
-            
-            return File(stream, "image/jpeg"); 
+
+            return File(stream, "image/jpeg");
         }
         catch (Exception ex)
         {
@@ -145,19 +129,16 @@ public class RestaurantController : Controller
             return NotFound();
         }
     }
-    
-    
+
     public async Task<IActionResult> Details(string restaurantId, string menuId)
     {
-        
         Console.WriteLine($"[DEBUG] Looking for Restaurant: '{restaurantId}'");
         Console.WriteLine($"[DEBUG] Looking for Menu: '{menuId}'");
 
         var items = await _restaurantService.GetParsedMenuItemsAsync(restaurantId, menuId);
-    
-      
+
         Console.WriteLine($"[DEBUG] Found {items.Count} items in Firestore!");
-    
+
         return View(items);
     }
 }
